@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unit Converter</title>
+</head>
+<body>
+
+    <form action="/convert" method="get">
+        <label for="valueInput">Value:</label>
+        <input type="number" name="value" id="valueInput">
+
+        <label for="chooseFromUnit">From </label>
+        <select name="from" id="chooseFromUnit">
+            <option value="meters">Meters</option>
+            <option value="feet">Feet</option>
+        </select>
+
+        <label for="chooseToUnit">To </label>
+        <select name="to" id="chooseToUnit">
+            <option value="meters">Meters</option>
+            <option value="feet">Feet</option>
+        </select>
+
+        <button type="submit">Convert</button>
+    </form>
+
+</body>
+</html>
