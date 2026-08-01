@@ -18,6 +18,14 @@ public class Server {
             os.close();
         });
 
+        server.createContext("/convert", (HttpExchange exchange) -> {
+            String response = "Received!";
+            exchange.sendResponseHeaders(200, response.length());
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        });
+
         server.start();
         System.out.println("Server started on http://localhost:8080");
     }
