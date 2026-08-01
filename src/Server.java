@@ -19,6 +19,24 @@ public class Server {
         });
 
         server.createContext("/convert", (HttpExchange exchange) -> {
+            String query = exchange.getRequestURI().getQuery();
+            System.out.println(query);
+
+            String[] splitQuery = query.split("&");
+            String value = "";
+            String from = "";
+            String to = "";
+            for (int i = 0; i < splitQuery.length; i++) {
+                String[] tokens = splitQuery[i].split("=");
+                if (tokens[0].equals("value")) {
+                    value = tokens[1];
+                } else if (tokens[0].equals("from")) {
+                    from = tokens[1];
+                } else if (tokens[0].equals("to")) {
+                    to = tokens[1];
+                }
+            }
+
             String response = "Received!";
             exchange.sendResponseHeaders(200, response.length());
             OutputStream os = exchange.getResponseBody();
