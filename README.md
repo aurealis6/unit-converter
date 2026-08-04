@@ -15,7 +15,7 @@ Repository: https://github.com/aurealis6/unit-converter
 - Custom styling with a segmented pill menu and colored conversion cards
 
 ![Unit Converter - Length](screenshots/Desktop_Length.png)
-![Unit Converter - Length](screenshots/Mobile_Temperature.jpg)
+![Unit Converter - Length](screenshots/Mobile.jpg)
 
 
 ## How it works
