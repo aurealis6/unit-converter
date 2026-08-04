@@ -10,7 +10,7 @@ Repository: https://github.com/aurealis6/unit-converter
 
 - Convert between units of **length**, **weight**, and **temperature**
 - Live category switching (Length / Temperature / Weight) with no page reload, powered by JavaScript
-- Clean, formatted results — capped at 5 decimal places with unnecessary trailing zeros removed
+- Clean, formatted results. Capped at 5 decimal places with trailing zeros removed
 - Responsive layout that adapts to smaller screens
 - Custom styling with a segmented pill menu and colored conversion cards
 
