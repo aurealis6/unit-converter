@@ -2,6 +2,8 @@ import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,7 +38,10 @@ public class Server {
                     to = tokens[1];
                 }
             }
-            String formattedResult = String.format(java.util.Locale.US, "%.5f", Converter.convert(value, from, to));
+            String formattedResult = new BigDecimal(Converter.convert(value, from, to))
+                    .setScale(5, RoundingMode.HALF_UP)
+                    .stripTrailingZeros()
+                    .toPlainString();
             exchange.getResponseHeaders().set("Content-Type", "text/plain");
             byte[] responseBytes = formattedResult.getBytes();
             exchange.sendResponseHeaders(200, responseBytes.length);
