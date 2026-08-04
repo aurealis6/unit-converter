@@ -14,7 +14,7 @@ Repository: https://github.com/aurealis6/unit-converter
 - Responsive layout that adapts to smaller screens
 - Custom styling with a segmented pill menu and colored conversion cards
 
-![Unit Converter - Length](screenshots/Desktop_Length.png)
+![Unit Converter - Length](screenshots/Desktop_Length.jpg)
 ![Unit Converter - Length](screenshots/Mobile.jpg)
 
 
