@@ -1,6 +1,6 @@
 # Unit Converter
 
-A web-based unit converter built in Java, using only the JDK's built-in HTTP server — no external frameworks or libraries.
+A web-based unit converter built in Java, using only the JDK's built-in HTTP server; no external frameworks or libraries.
 
 Project idea: https://roadmap.sh/projects/unit-converter
 
@@ -16,10 +16,10 @@ Repository: https://github.com/aurealis6/unit-converter
 
 ## How it works
 
-- **`Server.java`** — a minimal Java web server built on `com.sun.net.httpserver.HttpServer`. It serves the HTML form, the stylesheet, and a custom font, and exposes a `/convert` endpoint that reads submitted values from the query string and returns a converted result as plain text.
-- **`Converter.java`** — contains the conversion logic for each unit category. Length and weight conversions go through a common base unit (meters and kilograms respectively); temperature conversions go through Celsius as an intermediate step.
-- **`form.html`** — the page itself. A small amount of JavaScript handles switching between unit categories and submitting the form via `fetch()`, so the result updates without a full page reload.
-- **`unit-converter-style.css`** — styling for the page, including a responsive layout for smaller screens.
+- **`Server.java`** a minimal Java web server built on `com.sun.net.httpserver.HttpServer`. It serves the HTML form, the stylesheet, and a custom font, and exposes a `/convert` endpoint that reads submitted values from the query string and returns a converted result as plain text.
+- **`Converter.java`** contains the conversion logic for each unit category. Length and weight conversions go through a common base unit (meters and kilograms respectively); temperature conversions go through Celsius as an intermediate step.
+- **`form.html`** the page itself. A small amount of JavaScript handles switching between unit categories and submitting the form via `fetch()`, so the result updates without a full page reload.
+- **`unit-converter-style.css`** styling for the page, including a responsive layout for smaller screens.
 
 ## Requirements
 
