@@ -1,41 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Unit Converter</title>
+    <link rel="stylesheet" href="unit-converter-style.css">
 </head>
+
 <body>
+    <form action="/convert" method="GET" id="converterForm">
+        <div class="converter">
 
-    <form action="/convert" method="get">
-        <label for="valueInput">Value:</label>
-        <input type="number" name="value" id="valueInput">
+            <h1>Unit Converter</h1>
 
-        <label for="chooseFromUnit">From </label>
-        <select name="from" id="chooseFromUnit">
-            <option value="meter">Meter</option>
-            <option value="foot">Foot</option>
-            <option value="centimeter">Centimeter</option>
-            <option value="millimeter">Millimeter</option>
-            <option value="kilometer">Kilometer</option>
-            <option value="inch">Inch</option>
-            <option value="yard">Yard</option>
-            <option value="mile">Mile</option>
-        </select>
+            <div class="pill-menu" role="tablist">
+                <button type="button" class="pill pill-length active" role="tab" aria-selected="true">Length</button>
+                <button type="button" class="pill pill-temp" role="tab" aria-selected="false">Temperature</button>
+                <button type="button" class="pill pill-weight" role="tab" aria-selected="false">Weight</button>
+            </div>
 
-        <label for="chooseToUnit">To </label>
-        <select name="to" id="chooseToUnit">
-            <option value="meter">Meter</option>
-            <option value="foot">Foot</option>
-            <option value="centimeter">Centimeter</option>
-            <option value="millimeter">Millimeter</option>
-            <option value="kilometer">Kilometer</option>
-            <option value="inch">Inch</option>
-            <option value="yard">Yard</option>
-            <option value="mile">Mile</option>
-        </select>
+            <div class="from-card">
+                <label for="valueInput" class="visually-hidden">Value:</label>
+                <input type="number" name="value" id="valueInput" placeholder="Type here" step="any">
+
+                <label for="chooseFromUnit" class="visually-hidden">From</label>
+                <select name="from" id="chooseFromUnit">
+                    <option value="meter">Meter</option>
+                    <option value="foot">Foot</option>
+                    <option value="centimeter">Centimeter</option>
+                    <option value="millimeter">Millimeter</option>
+                    <option value="kilometer">Kilometer</option>
+                    <option value="inch">Inch</option>
+                    <option value="yard">Yard</option>
+                    <option value="mile">Mile</option>
+                </select>
+            </div>
+
+            <div class="arrow-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13.0001 16.1716L18.3641 10.8076L19.7783 12.2218L12.0001 20L4.22192 12.2218L5.63614 10.8076L11.0001 16.1716V4H13.0001V16.1716Z"></path>
+                </svg>
+            </div>
+
+            <div class="to-card">
+                <output id="to-value" class="result-value">0</output>
+                <label for="chooseToUnit" class="visually-hidden">To</label>
+                <select name="to" id="chooseToUnit">
+                    <option value="foot">Foot</option>
+                    <option value="centimeter">Centimeter</option>
+                    <option value="millimeter">Millimeter</option>
+                    <option value="kilometer">Kilometer</option>
+                    <option value="inch">Inch</option>
+                    <option value="yard">Yard</option>
+                    <option value="mile">Mile</option>
+                    <option value="meter">Meter</option>
+                </select>
+            </div>
+
+        </div>
 
         <button type="submit">Convert</button>
     </form>
 
+    <script>
+        const unitsByCategory = {
+            length: ["meter", "foot", "centimeter", "millimeter", "kilometer", "inch", "yard", "mile"],
+            temp: ["celsius", "fahrenheit", "kelvin"],
+            weight: ["kilogram", "gram", "milligram", "pound", "ounce"]
+        };
+
+        const labels = {
+            meter: "Meter", foot: "Foot", centimeter: "Centimeter", millimeter: "Millimeter",
+            kilometer: "Kilometer", inch: "Inch", yard: "Yard", mile: "Mile",
+            celsius: "Celsius", fahrenheit: "Fahrenheit", kelvin: "Kelvin",
+            kilogram: "Kilogram", gram: "Gram", milligram: "Milligram", pound: "Pound", ounce: "Ounce"
+        };
+
+        let currentCategory = "length";
+
+        function populateDropdowns(category) {
+            const fromSelect = document.getElementById("chooseFromUnit");
+            const toSelect = document.getElementById("chooseToUnit");
+
+            fromSelect.innerHTML = "";
+            toSelect.innerHTML = "";
+
+            unitsByCategory[category].forEach((unit) => {
+                const option1 = document.createElement("option");
+                option1.value = unit;
+                option1.textContent = labels[unit];
+                fromSelect.appendChild(option1);
+
+                const option2 = document.createElement("option");
+                option2.value = unit;
+                option2.textContent = labels[unit];
+                toSelect.appendChild(option2);
+            });
+        }
+
+        const pills = document.querySelectorAll(".pill");
+
+        pills.forEach((pill) => {
+            pill.addEventListener("click", () => {
+                pills.forEach((p) => {
+                    p.classList.remove("active");
+                    p.setAttribute("aria-selected", "false");
+                });
+
+                pill.classList.add("active");
+                pill.setAttribute("aria-selected", "true");
+
+                if (pill.classList.contains("pill-length")) {
+                    currentCategory = "length";
+                } else if (pill.classList.contains("pill-temp")) {
+                    currentCategory = "temp";
+                } else if (pill.classList.contains("pill-weight")) {
+                    currentCategory = "weight";
+                }
+
+                populateDropdowns(currentCategory);
+                document.getElementById("to-value").textContent = "0";
+            });
+        });
+
+        populateDropdowns(currentCategory);
+
+        const form = document.getElementById("converterForm");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const value = document.getElementById("valueInput").value;
+            const from = document.getElementById("chooseFromUnit").value;
+            const to = document.getElementById("chooseToUnit").value;
+
+            const url = `/convert?value=${value}&from=${from}&to=${to}`;
+
+            const response = await fetch(url);
+            const result = await response.text();
+
+            document.getElementById("to-value").textContent = result;
+        });
+    </script>
 </body>
+
 </html>

@@ -9,7 +9,7 @@ import java.nio.file.Path;
 public class Server {
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-        
+
         server.createContext("/", (HttpExchange exchange) -> {
             String response = Files.readString(Path.of("src/form.html"));
             exchange.sendResponseHeaders(200, response.length());
@@ -36,10 +36,30 @@ public class Server {
                     to = tokens[1];
                 }
             }
-            String response = value + " " + from + " = " + Converter.convert(value, from, to) + " " + to;
-            exchange.sendResponseHeaders(200, response.length());
+            String formattedResult = String.format(java.util.Locale.US, "%.5f", Converter.convert(value, from, to));
+            exchange.getResponseHeaders().set("Content-Type", "text/plain");
+            byte[] responseBytes = formattedResult.getBytes();
+            exchange.sendResponseHeaders(200, responseBytes.length);
             OutputStream os = exchange.getResponseBody();
-            os.write(response.getBytes());
+            os.write(responseBytes);
+            os.close();
+        });
+
+        server.createContext("/unit-converter-style.css", (HttpExchange exchange) -> {
+            String css = Files.readString(Path.of("src/unit-converter-style.css"));
+            exchange.getResponseHeaders().set("Content-Type", "text/css");
+            exchange.sendResponseHeaders(200, css.length());
+            OutputStream os = exchange.getResponseBody();
+            os.write(css.getBytes());
+            os.close();
+        });
+
+        server.createContext("/Inter-Variable.ttf", (HttpExchange exchange) -> {
+            byte[] fontBytes = Files.readAllBytes(Path.of("Inter-Variable.ttf"));
+            exchange.getResponseHeaders().set("Content-Type", "font/ttf");
+            exchange.sendResponseHeaders(200, fontBytes.length);
+            OutputStream os = exchange.getResponseBody();
+            os.write(fontBytes);
             os.close();
         });
 

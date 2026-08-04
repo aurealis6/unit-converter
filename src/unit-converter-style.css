@@ -1,0 +1,292 @@
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: local('Inter Variable'),
+    url('../Inter-Variable.ttf') format('truetype');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+body, h1, input, select, button, output {
+    font-family: 'Inter', sans-serif;
+}
+
+form {
+    width: 50%;
+    border-radius: 24px;
+    padding: 100px;
+    transform: translateY(-5vh);
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.converter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Pills row */
+.pill-menu {
+    display: flex;
+    border-radius: 300px;
+    background-color: #D9D9D9;
+    margin-bottom: 24px;
+}
+
+.pill-length, .pill-temp, .pill-weight {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    font-weight: 500;
+    color: grey;
+    cursor: pointer;
+    padding: 12px 28px;
+    border-radius: 300px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pill-length:hover {
+    color: black;
+}
+
+.pill-length.active {
+    background-color: #93FF8B;
+    color: black;
+}
+
+.pill-temp:hover {
+    color: black;
+}
+
+.pill-temp:active {
+    background-color: #FF8688;
+    color: black;
+}
+
+.pill-weight:hover {
+    color: black;
+}
+
+.pill-weight:active {
+    background-color: #FF9CD1;
+    color: black;
+}
+
+/* From / To cards */
+.from-card,
+.to-card {
+    width: 100%;
+    height: 120px;
+    border-radius: 12px;
+    padding: 36px 20px 20px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.from-card {
+    margin-bottom: -12px;
+}
+
+.to-card {
+    margin-top: -12px;
+}
+
+/*  length cards  */
+.pill-menu .pill-length.active {
+   background-color: #93FF8B;
+   color: #000000;
+}
+
+form:has(.pill-length.active) .from-card {
+   background-color: #8EFF7B;
+}
+
+form:has(.pill-length.active) .to-card,
+form:has(.pill-length.active) button[type="submit"]:hover {
+   background-color: #A49BFE;
+   color: #000000;
+}
+
+/*  temp cards  */
+.pill-menu .pill-temp.active {
+    background-color: #FF8688;
+    color: #000000;
+}
+
+form:has(.pill-temp.active) .from-card {
+    background-color: #FF8688;
+}
+
+form:has(.pill-temp.active) .to-card,
+form:has(.pill-temp.active) button[type="submit"]:hover {
+    background-color: #8CC2FF;
+    color: #000000;
+}
+
+/* weight cards  */
+.pill-menu .pill-weight.active {
+    background-color: #FF9CD1;
+    color: #000000;
+}
+
+form:has(.pill-weight.active) .from-card {
+    background-color: #FF9CD1;
+}
+
+form:has(.pill-weight.active) .to-card,
+form:has(.pill-weight.active) button[type="submit"]:hover {
+    background-color: #E6F881;
+    color: #000000;
+}
+
+/* Convert button */
+button[type="submit"] {
+    margin-top: 24px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 999px;
+    background-color: #D9D9D9;
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* from/to text */
+.from-card::before,
+.to-card::before {
+    content: "From";
+    position: absolute;
+    top: 14px;
+    left: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.to-card::before {
+    content: "To";
+}
+
+/* Input and Result display */
+.from-card input:placeholder-shown {
+    font-size: 28px;
+    font-weight: 200;
+    color: black;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
+.from-card input::placeholder {
+    color: #393939;
+    opacity: 1;
+}
+
+.from-card input,
+.to-card .result-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: #000000;
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.from-card input {
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
+
+
+/* Clean up input-design */
+.from-card input {
+    -moz-appearance: textfield;
+}
+
+.from-card input::-webkit-outer-spin-button,
+.from-card input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.from-card input:focus {
+    outline: none;
+}
+
+/* Select dropdowns */
+.from-card select,
+.to-card select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 36px 12px 20px;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    flex-shrink: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 20px;
+}
+
+.from-card select:focus,
+.to-card select:focus {
+    outline: none;
+}
+
+/* Arrow icon between cards */
+.arrow-icon {
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Accessibility: visually hidden labels */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
