@@ -14,6 +14,10 @@ Repository: https://github.com/aurealis6/unit-converter
 - Responsive layout that adapts to smaller screens
 - Custom styling with a segmented pill menu and colored conversion cards
 
+![Unit Converter - Length](screenshots/Desktop_Length.png)
+![Unit Converter - Length](screenshots/Mobile_Temperature.jpg)
+
+
 ## How it works
 
 - **`Server.java`** — a minimal Java web server built on `com.sun.net.httpserver.HttpServer`. It serves the HTML form, the stylesheet, and a custom font, and exposes a `/convert` endpoint that reads submitted values from the query string and returns a converted result as plain text.
